@@ -18,21 +18,21 @@ class LinkedList {
     for (let val of vals) this.push(val);
   }
 
+
   /** push(val): add new value to end of list. */
-  // newNode is the new item with the value of the input val pushed to the LL
-  // the newNode becomes the head
-  // AND the newNode also becomes the tail
+  // define variable newNode as the new item with the value of the input val pushed to the LL
+  // if there is no head (as in the LL is empty)
+  // the newNode becomes the head AND the newNode also becomes the tail by way of the tail being equal to the head
   // Otherwise we know the LL contains one or more items
   // the newNode becomes the this.tail.next
   // AND it also becomes the tail
   // In all cases, the length of the LL increases by one.
 
   push(val) {
-    
     let newNode = new Node(val);
     if(!this.head){
       this.head = newNode;
-      this.tail = newNode;
+      this.tail = this.head;
     } else {
       this.tail.next = newNode;     
       this.tail = newNode;
@@ -62,16 +62,17 @@ class LinkedList {
     this.length += 1;
   }
 
-
+  // *
   /** pop(): return & remove last item. */
   // When the last item is removed, the tail becomes the item that was to the left of the tail before it was removed, 
   // which means that the new tail becomes the item at this.length-1
 
   pop() {
-    return this.tail = this.length -1;
+    return this.tail = this.length -2;
   }
 
 
+  // *
   /** shift(): return & remove first item. */
   // If there are one or more items in the LL, when you remove the first item, you are removing the head,
   // so this.next becomes the head.
@@ -103,9 +104,8 @@ class LinkedList {
     }
   }
    
-
+  //  *
   /** setAt(idx, val): set val at idx to val */
-
   // If the LL is empty, or if idx is negative, or if idx is greater than this.length
   // Throw Error.
   // Else if idx = 0, set this.head to the input val
@@ -125,6 +125,8 @@ class LinkedList {
     }
   }
 
+  // * The solution uses unshift, but the video didn't go over methods.  I know that unshift is an 
+  // array method...does it also work on LLs?
   /** insertAt(idx, val): add node w/val before idx. */
   // If the LL is empty, or if idx is negative, or if idx is greater than this.length
   // Throw Error.
@@ -147,13 +149,36 @@ class LinkedList {
   // if the LL is empty, or if the idx is negative, or if the idx is 
   // larger than the length of the LL
   // throw error
-  // else subtract one from the length of the LL
+  // If idx is the first value, 
+  // Let val = head, 
+  // Let the head = the value at index 1
+  // Subtract 1 from the length of the LL.
+  // If the length of the LL is less than two
+  // Make the head equal to the tai
+  // Return val
+  // Else if idx is the last value 
 
   removeAt(idx) {
     if(this.length === 0 || idx < 0 || idx > this.length -1) {
       throw new Error("Invalid idx.");
-    } else {
-      return this.length === this.length - 1;
+    } else if(idx === 0) {
+      let val = this.head.val;
+      this.head = this.head.next;
+      this.length -= 1;
+      if(this.length < 2){
+        this.tail = this.head;
+        return val
+      }
+    } else if(idx === this.length-1) {
+      return this.pop();
+    }
+    else while (i <= this.length-1){
+      if (i === idx){
+        let removedVal = idx.val;
+        let i.val = i.next.val;
+        this.length -= 1;
+        return removedVal;
+      }
     }
   }
 
